@@ -1,0 +1,116 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 520,
+    "padding": {"left": 0, "right": 80, "bottom": 10},
+    "title": {"text": "Top 10 GPUs in 2024 by Performance", "fontSize": 16, "offset": 20, "align": "center"},
+    "data": {"url": "data/top-gpus.csv"},
+    "background": "#c0e8ba",
+
+    "config": {
+        "view": {
+            "stroke": null
+        }
+    },
+    
+    "height": 400,
+
+    "layer": [
+        {
+            "mark": "bar",
+            "encoding": {
+                "y": {
+                    "field": "GPU",
+                    "type": "ordinal",
+                    "sort": "-x",
+                    "axis": {
+                        "title": "Graphics Card",
+                        "titlePadding": 10
+                    }
+                },
+                "x": {
+                    "field": "3DMark_Time_Spy_Extreme_GPU_Index",
+                    "type": "quantitative",
+                    "title": "3DMark Time Spy Extreme GPU Index",
+                    "axis": {
+                        "grid": false,
+                        "tickCount": 5
+                    }
+                },
+                "color": {
+                    "field": "Company",
+                    "type": "nominal",
+                    "scale": {
+                        "domain": ["NVIDIA", "AMD"],
+                        "range": ["#094001", "#808080"]
+                    },
+                    "legend": null
+                },
+                "tooltip": [
+                    {"field": "GPU", "type": "nominal", "title": "Graphics Card"},
+                    {"field": "3DMark_Time_Spy_Extreme_GPU_Index", "type": "quantitative", "title": "3DMark Time Spy Extreme GPU Index"}
+                ]
+            }
+        },
+        {
+            "mark": {
+                "type": "text", "fill": "#454545", "fontSize": 14, "fontWeight": "lighter", "align": "left",
+                "text": ["The RTX 4090", "is the most", "powerful GPU in 2024"],
+                "x": 380,
+                "y": 60
+            }
+        },
+        {
+            "mark": {
+                "type": "text", "fill": "#454545", "fontSize": 14, "fontWeight": "lighter", "align": "left",
+                "text": ["Interestingly, the RTX 4090", "is almost twice as", "powerful as its last-generation", "counterpart, the RTX 3090"],
+                "x": 300,
+                "y": 320
+            }
+        },
+        {
+            "mark": {
+                "type": "text", "fill": "black", "fontSize": 14, "fontWeight": "bold", "align": "left",
+                "text": ["Company"],
+                "x": 396,
+                "y": 460
+            }
+        },
+        {
+            "mark": {
+                "type": "text", "fill": "black", "fontSize": 14, "fontWeight": "lighter", "align": "left",
+                "text": ["NVIDIA GPU", "Non-NVIDIA GPU"],
+                "x": 410,
+                "y": 475
+            }
+        },
+        {
+            "mark": {
+                "type": "circle", "fill": "#094001",
+                "x": 400,
+                "y": 475
+            }
+        },
+        {
+            "mark": {
+                "type": "circle", "fill": "#808080",
+                "x": 400,
+                "y": 490
+            }
+        },
+        {
+            "mark": {
+                "type": "text", "fill": "#595959", "fontSize": 14, "fontWeight": "lighter", "align": "left",
+                "text": [
+                    "Source: https://www.pcgamer.com/the-best-graphics-cards/", 
+                    "Author: Jacob Ridley from PC Gamer",
+                    "with Chris Szewczyk, Dave James, and Andy Edser",
+                    "Date Published: August 16, 2024"
+                ],
+                "x": -138,
+                "y": 460
+            }
+        }
+    ]
+    
+  }
+  

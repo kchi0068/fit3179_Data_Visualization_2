@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Import Vega & Vega-Lite (does not have to be from CDN) -->
+        <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+
+        <!-- Import pure.css -->
+        <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
+            integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- Google font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+
+        <!-- CSS file -->
+        <link rel="stylesheet" type="text/css" href="css/styles.css" media="all">
+    
+    </head>
+
+    <body>
+        <div class="page">
+
+            <!-- Title -->
+            <div class = "title">
+            <h1 style = "font-family: 'Bungee Shade', serif">
+                Why Steam Users prefer NVIDIA Graphics Cards
+            </h1>
+            </div>
+
+            <!-- pure grid group -->
+            <div class = "heading">
+                <h2>
+                    Introduction
+                </h2>
+            </div>
+            <div class="pure-g">
+                <div class="pure-u-1-2 text_box">
+                    <div class = "description description-left">
+                        <p style = "font-family: 'Roboto', sans-serif"><b>Steam</b> is one of the largest online gaming distribution platforms in the world,
+                            with approximately <b>132 million users</b> worldwide.
+                            
+                        </p>
+                        
+                        <p style = "font-family: 'Roboto', sans-serif">
+                            The digital storefront was developed by the <b>Valve Corporation</b> and released in 2003. Ever since its release, it has cultivated a 
+                            strong reputation for being the <b>'go-to'</b> storefront for many
+                            Personal Computer (PC) gamers all over the globe, and as such, analyzing the <b>geographic distribution</b> of its userbase offers a 
+                            key look into the general geographic distribution of PC gamers <b>across the world</b>.
+                        </p>
+                        <p style = "font-family: 'Roboto', sans-serif">
+                            Indeed, it can be seen that there exists a high concentration of PC gamers in <b>high-income, developed nations</b> like <b>the United States</b>
+                            and <b>Australia</b>. However, the same can also be said for a handful of developing countries such as <b>Malaysia</b> and <b>Brazil</b>. 
+                        </p>
+                        <p style = "font-family: 'Roboto', sans-serif">
+                            This sort of data is crucial for companies that manufacture <b>PC Gaming Hardware</b> as it helps them to pinpoint which markets they should focus and to <b>identify
+                            new and emerging markets</b> for selling their wares.
+                        </p>
+                        <p style = "font-family: 'Roboto', sans-serif">
+                            In fact, one such company is <b style = "color: #094001">NVIDIA</b>, which manufactures Graphics Cards or 
+                            Graphics Processing Units (GPU) that are crucial components in running PC games. By exploring the distribution of GPUs amongst
+                            Steam's user base, we can find some insights that will be useful for <b style = "color: #094001">NVIDIA</b> as a company.
+                        </p>
+                    </div>
+                </div>
+
+                <div class = "pure-u-1-2 choropleth_map row_box">
+                    <div id = "steam_users_by_country" class = "vis-container"></div>
+                    <div>
+                        <div class = "metadata" style = "float:left">
+                            <p>
+                                Source 1: https://worldpopulationreview.com/country-rankings/steam-users-by-country <br>
+                                Author: World Population Review <br>
+                                Date Published: March 24, 2021
+                            </p>
+                        </div>
+                        <div class = "metadata" style = "float:left; margin-left: 0px">
+                            <p>
+                                Source 2: https://data.worldbank.org/indicator/SP.POP.TOTL <br>
+                                Author: World Bank <br>
+                                Date Published: September 19, 2024
+                            </p>
+                        </div>
+                    </div>
+                    <div class = "metadata" style = "float:left; margin-left: 0px">
+                        <p>
+                            Source 3: https://developers.google.com/public-data/docs/canonical/countries_csv <br>
+                            Author: Google for Developers <br>
+                            Date Published: June 26, 2024
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- end pure grid group -->
+
+
+            <!-- pure grid group -->
+            <div class = "heading">
+                <h2>
+                    What Graphics Cards do Steam users use?
+                </h2>
+            </div>
+            <div class="pure-g">
+                <div class="pure-u-1-2 text_box">
+                    <div class = "description description-left">
+                        <p style = "font-family: 'Roboto', sans-serif">
+                            <b>Steam</b> runs a monthly survey in order to collect data on the PC specifications of its users, compiling and releasing
+                            them in the <b>Steam Hardware & Software Survey</b> of that particular month. The September 2024 issue of said
+                            survey has identified 3 major manufacturers of GPUs: <b style = "color: #094001">NVIDIA</b>, <b style = "color: #6a51a3">AMD</b>, and <b style = "color: #4c9dd4">Intel</b>. There are of course <b style = "color: #595959">other</b> GPU
+                            manufacturers besides these 3, but these are the major players in the GPU market. 
+                        </p>
+                        <p style = "font-family: 'Roboto', sans-serif">
+                            Of the 3 major GPU manufacturers in the market, <b style = "color: #094001">NVIDIA</b> has emerged as the clear market dominator, with <b>over 75% of Steam users</b>
+                            polled by the September 2024 issue of the Steam Hardware & Software Survey having chosen an <b style = "color: #094001">NVIDIA</b>-manufactured GPU
+                            for their PC, compared to roughly 11% for <b style = "color: #6a51a3">AMD</b> and 5% for <b style = "color: #4c9dd4">Intel</b>. 
+                            This indicates that <b>a vast majority of Steam users prefer</b> <b style = "color: #094001">NVIDIA</b> <b>GPUs</b> over GPUs manufactured by their competitors.
+                        </p>
+                        <p style = "font-family: 'Roboto', sans-serif">
+                            All of this begs the question: why do Steam users overwhelmingly prefer <b style = "color: #094001">NVIDIA's</b> GPUs over those produced by their competitors?
+                        </p>
+                    </div>
+                </div>
+
+                <div class = "pure-u-1-2 row_box">
+                    <div id = "steam_gpu_distribution" class = "vis-container"></div>
+                </div>
+            </div>
+            <!-- end pure grid group -->
+
+
+            <!-- pure grid group -->
+            <div class = "heading">
+                <h2>
+                    General Graphics Card Performance Comparison
+                </h2>
+            </div>
+            <div class="pure-g">
+
+                <div class="pure-u-1-2 text_box">
+                    <div class = "description description-right">
+                        <p style = "font-family: 'Roboto', sans-serif">
+                            One big reason why Steam users overwhelmingly prefer <b style = "color: #094001">NVIDIA</b> GPUs has to do with their <b>high performance</b>.
+                        </p>
+
+                        <p style = "font-family: 'Roboto', sans-serif">
+                            Performance is an important factor for PC gamers when picking and choosing which graphics cards they want to have in
+                            their computers because they can <b>derive more enjoyment</b> out of video games when playing them at the <b>best
+                            graphical settings</b> with the <b>highest frame rates</b>, and powerful GPUs are necessary to enable this.
+                        </p>
+
+                        <p style = "font-family: 'Roboto', sans-serif">
+                            With that in mind, it should be no surprise then why so many Steam users seem to prefer <b style = "color: #094001">NVIDIA's</b> GPUs over that
+                            of their competitors. After all, <b style = "color: #094001">NVIDIA's</b> GPUs consistently outshine their competition in terms of <b>graphical fidelity</b> 
+                            and <b>frame rates</b>, and this can be clearly seen in PC Gamer's hierarchy of the Top 10 GPUs in 2024, where <b>7 out of the 10</b> very best
+                            GPUs in 2024 were manufactured by <b style = "color: #094001">NVIDIA</b>.
+                        </p>
+
+                        <p style = "font-family: 'Roboto', sans-serif">
+                            In fact, the <b>top 3 spots</b> in the ranking were held by <b style = "color: #094001">NVIDIA</b> GPUs, whereas
+                            <b style = "color: #6a51a3">AMD's</b> strongest-performing graphics card only managed to cinch fourth place.
+                            This lends credence to the notion that <b style = "color: #094001">NVIDIA's</b> GPUs are <b>generally stronger</b> compared to those manufactured by their
+                            competitors.
+                        </p>
+                    </div>
+                </div>
+
+                <div class = "pure-u-1-2 row_box">
+                    <div id = "top_gpus" class = "vis-container"></div>
+                </div>
+            </div>
+            <!-- end pure grid group -->
+
+            <!-- pure grid group -->
+            <div class = "heading">
+                <h2>
+                    Flagship Graphics Card Performance Comparison
+                </h2>
+            </div>
+            <div class="pure-g">
+
+                <div class="pure-u-1-2 text_box">
+                    <div class = "description description-right">
+                        <p style = "font-family: 'Roboto', sans-serif">
+                            The notion that <b style = "color: #094001">NVIDIA's</b> GPUs are several times stronger than those which are produced by their competitors is best exemplified via a
+                            comparison of <b style = "color: #094001">NVIDIA's</b> flagship GPU (the RTX 4090) with <b style = "color: #6a51a3">AMD's</b> flagship GPU (the RX 7900 XTX). These
+                            flagship GPUs represent the <b>highest-end, top-performing GPU of their generation</b> and this is reflected in not only
+                            their steep price but their performance in games.
+                        </p>
+
+                        <p style = "font-family: 'Roboto', sans-serif">
+                            From the chart, we can see that <b style = "color: #094001">NVIDIA's</b> RTX 4090 completely blows <b style = "color: #6a51a3">AMD's</b> RX 7900 XTX out of the water in terms of
+                            average <b>frames-per-second</b> (FPS) at 4K resolution and the highest graphical settings in the following 6 games:
+                            Cyberpunk 2077, Baldur's Gate 3, Red Dead Redemption 2, Deathloop, Star Wars Jedi: Survivor, and Cities: 
+                            Skylines II. 
+                            In all 6 games, <b style = "color: #094001">NVIDIA's</b> <b>RTX 4090 delivered a higher average FPS</b> than <b style = "color: #6a51a3">AMD's</b> RX 7900 XTX did and often
+                            did so by a significant margin as well.
+                        </p>
+
+                        <p style = "font-family: 'Roboto', sans-serif">
+                            Combining all of this data with our knowledge that the vast majority of Steam users reside in <b>developed, Western nations</b>,
+                            and as such are very likely to have the <b>disposable income</b> to afford the strongest-performing GPUs, we can easily see that
+                            such individuals will prefer <b style = "color: #094001">NVIDIA's</b> stronger GPUs over those manufactured by <b style = "color: #6a51a3">AMD</b>.
+                        </p>
+
+                    </div>
+                </div>
+
+                <div class = "pure-u-1-2 row_box">
+                    <div id = "rtx4090_vs_rtx_7900_xtx" class = "vis-container"></div>
+                    <div class = "metadata">
+                        <p>
+                            Source: https://howmanyfps.com/graphics-cards <br>
+                            Author: HowManyFPS <br>
+                            Date Retrieved: October 8, 2024
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- end pure grid group -->
+             
+
+            <!-- pure grid group -->
+            <div class = "heading">
+                <h2>
+                    What this means for NVIDIA
+                </h2>
+            </div>
+            <div class="pure-g">
+
+                <div class="pure-u-1-2 text_box">
+                    <div class = "description description-right">
+                        <p style = "font-family: 'Roboto', sans-serif">
+                            It should be no surprise that the popularity of <b style = "color: #094001">NVIDIA's</b> GPUs amongst Steam's user base and PC gamers at large
+                            has generated <b>significant financial returns</b> for <b style = "color: #094001">NVIDIA</b>.
+                        </p>
+                        
+                        <p style = "font-family: 'Roboto', sans-serif">
+                            Whilst there were some dips here and there, all in all,
+                            its stock price has been <b>steadily trending upwards</b> throughout the years <b>2022 to 2024</b>. 
+                            Furthermore, it can be seen that its current stock price in 2024 is <b>4-times</b> what
+                            it was during the start of 2022.
+                        </p>
+
+                        <p style = "font-family: 'Roboto', sans-serif">
+                            This could be explained by the fact that in <b>October 2022</b>, <b style = "color: #094001">NVIDIA</b> released the first model of their
+                            RTX 40 series of graphics cards onto the market, starting with their flagship <b>RTX 4090</b>. The rest of the
+                            RTX 40 series soon followed suit, with the <b>RTX 4080</b> entering the market in <b>November 2022</b> and the <b>RTX 4070</b>
+                            arriving in <b>April 2023</b>.
+                        </p>
+
+                        <p style = "font-family: 'Roboto', sans-serif">
+                            As we have seen earlier, the RTX 4090 was an <b>absolute powerhouse</b> of a graphics card, and the other graphics
+                            cards in the RTX 40 series have all been <b>ranked very highly</b> in terms of performance.
+                        </p>
+
+                        <p style = "font-family: 'Roboto', sans-serif">
+                            Naturally, this has all
+                            resulted in <b>very strong sales</b> and <b>sky-high revenues</b> for <b style = "color: #094001">NVIDIA</b>, culminating
+                            in the meteoric rise of its share prices past <b>October 2022</b>.
+                        </p>
+                    </div>
+                </div>
+
+                <div class = "pure-u-1-2 row_box">
+                    <div id = "nvidia_stock_data" class = "vis-container"></div>
+                    
+                </div>
+            </div>
+            <!-- end pure grid group -->
+
+            <!-- pure grid group -->
+            <div class = "heading">
+                <h2>
+                    NVIDIA's Future
+                </h2>
+            </div>
+            <div class="pure-g">
+
+                <div class="pure-u-1-2 text_box">
+                    <div class = "description description-right">
+                        <p style = "font-family: 'Roboto', sans-serif">
+                            These days, <b style = "color: #094001">NVIDIA</b> makes a majority of their revenue from their <b>data centre operations</b>, capitalizing on the
+                            rising demand for <b>artificial intelligence-powered services</b> by offering a range of GPUs specially-designed for
+                            data centre environments where they would be put to use in <b>powering machine learning models</b> and performing
+                            <b>data analytics</b> amongst other things.
+                        </p>
+                        
+                        <p style = "font-family: 'Roboto', sans-serif">
+                            That said, gaming continues to be the <b>second-largest source of revenue</b> for the company, 
+                            generating over <b>2 billion dollars</b> in revenue as revealed in their <b>Financial Year 2024 Quarter 1</b> financial statements.
+                        </p>
+                        
+                        <p style = "font-family: 'Roboto', sans-serif">
+                            For that reason, it is very important for <b style = "color: #094001">NVIDIA</b> to continue to invest in their <b>gaming</b> department, not just
+                            by investing in <b>research & development</b> to develop more powerful graphics cards, but in identifying <b>previously-untapped</b>
+                            and <b>emerging</b> GPU markets so that they may gain a foothold there before their competitors like <b style = "color: #6a51a3">AMD</b> and <b style = "color: #4c9dd4">Intel</b> can. 
+                        </p>
+                    </div>
+                </div>
+
+                <div class = "pure-u-1-2 row_box">
+                    <div id = "nvidia_q1_2024" class = "vis-container"></div>
+                </div>
+            </div>
+            <!-- end pure grid group -->
+
+            <div class = "metadata_box">
+                <p style = "font-family: 'Roboto', sans-serif">
+                    Visualization by Kerk Han Chin and completed on October 15 2024
+                </p>
+            </div>
+             
+        </div>
+
+        
+
+        <script type="text/javascript">
+            var spec1 = "js/steam_users_by_country.vg.json";
+            var spec2 = "js/nvidia_stock_data.vg.json";
+            var spec3 = "js/steam_gpu_distribution.vg.json"
+            var spec4 = "js/rtx4090-vs-rx-7900-xtx.vg.json"
+            var spec5 = "js/top_gpus.vg.json"
+            var spec6 = "js/nvidia_q1_2024.vg.json"
+
+            vegaEmbed('#steam_users_by_country', spec1).then(function(result) {
+              // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+            }).catch(console.error);
+
+            vegaEmbed('#nvidia_stock_data', spec2).then(function(result) {
+              // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+            }).catch(console.error);
+
+            vegaEmbed('#steam_gpu_distribution', spec3).then(function(result) {
+              // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+            }).catch(console.error);
+
+            vegaEmbed('#rtx4090_vs_rtx_7900_xtx', spec4).then(function(result) {
+              // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+            }).catch(console.error);
+
+            vegaEmbed('#top_gpus', spec5).then(function(result) {
+              // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+            }).catch(console.error);
+
+            vegaEmbed('#nvidia_q1_2024', spec6).then(function(result) {
+              // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+            }).catch(console.error);
+        </script>
+
+    </body>
+</html>

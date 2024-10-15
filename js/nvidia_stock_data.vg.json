@@ -1,0 +1,165 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": "container",
+    "height": 420,
+    "title": {"text": "NVIDIA Stock Price 2022-2024", "fontSize": 16},
+    "background": "#c0e8ba",
+    "padding": {"left": 15, "right": 20, "top": 0},
+
+    "data": {"url": "data/nvidia-stock-data.csv"},
+
+    "transform": [
+        {
+            "calculate": "parseInt(replace(datum.Open, /[$,]/g, ''))",
+            "as": "open_int"
+        },
+        {
+            "calculate": "parseInt(replace(datum.Close, /[$,]/g, ''))",
+            "as": "close_int"
+        },
+        {
+            "calculate": "parseInt(replace(datum.High, /[$,]/g, ''))",
+            "as": "high_int"
+        },
+        {
+            "calculate": "parseInt(replace(datum.Low, /[$,]/g, ''))",
+            "as": "low_int"
+        }
+    ],
+
+    "config": {
+        "view": {
+            "stroke": null
+        }
+    },
+
+
+    
+
+    "layer": [
+        {
+            "mark": "rule",
+            "encoding": {
+                "x": {
+                    "field": "Date",
+                    "type": "temporal",
+                    "title": "Date",
+                    "axis": {
+                        "format": "%m/%d/%Y",
+                        "labelAngle": -45,
+                        "grid": false
+                    }
+                },
+                "y": {
+                    "field": "low_int",
+                    "type": "quantitative",
+                    "scale": {"zero": true},
+                    "axis": {"title": "Price ($)", "grid": false}
+                },
+                "y2": {"field": "high_int"}
+            }
+        },
+        {
+            "mark": "bar",
+            "encoding": {
+                "x": {
+                    "field": "Date",
+                    "type": "temporal",
+                    "title": "Date",
+                    "axis": {
+                        "format": "%m/%d/%Y",
+                        "labelAngle": -45,
+                        "grid": false
+                    }
+                },
+                "y": {
+                    "field": "open_int",
+                    "type": "quantitative",
+                    "scale": {"zero": true},
+                    "axis": {"title": "Price ($)", "grid": false}
+                },
+                "y2": {"field": "close_int"},
+                "tooltip": [
+                    {"field": "Date", "type": "temporal", "title": "Date"},
+                    {"field": "open_int", "type": "quantitative", "title": "Open Price", "format": "$,.2f"},
+                    {"field": "close_int", "type": "quantitative", "title": "Close Price", "format": "$,.2f"},
+                    {"field": "high_int", "type": "quantitative", "title": "High Price", "format": "$,.2f"},
+                    {"field": "low_int", "type": "quantitative", "title": "Low Price", "format": "$,.2f"}
+                ],
+                "color": {
+                    "condition": {
+                        "test": "datum.open_int < datum.close_int",
+                        "value": "#33a02c"
+                    },
+                    "value": "#6a51a3"
+                }
+            }
+        },
+        {
+            "mark": {
+                "type": "text", "fill": "#454545", "fontSize": 14, "fontWeight": "lighter", "align": "left",
+                "text": ["In October 2022,", "the RTX 4090 was released"],
+                "x": 80,
+                "y": 320
+            }
+        },
+        {
+            "mark": {
+                "type": "text", "fill": "#454545", "fontSize": 14, "fontWeight": "lighter", "align": "left",
+                "text": ["Then in April 2023", "the RTX 4070 was released"],
+                "x": 260,
+                "y": 380
+            }
+        },
+        {
+            "mark": {
+                "type": "text", "fill": "#454545", "fontSize": 14, "fontWeight": "lighter", "align": "left",
+                "text": ["Strong quarterly earnings from", "high GPU sales resulted in a large", "spike in stock price in 2024"],
+                "x": 280,
+                "y": 100
+            }
+        },
+        {
+            "mark": {
+                "type": "text", "fill": "black", "fontSize": 14, "fontWeight": "bold", "align": "left",
+                "text": ["Candlestick"],
+                "x": 466,
+                "y": 500
+            }
+        },
+        {
+            "mark": {
+                "type": "text", "fill": "black", "fontSize": 14, "fontWeight": "lighter", "align": "left",
+                "text": ["Bullish - Price Increased", "Bearish - Price Decreased"],
+                "x": 480,
+                "y": 515
+            }
+        },
+        {
+            "mark": {
+                "type": "circle", "fill": "#33a02c",
+                "x": 470,
+                "y": 515
+            }
+        },
+        {
+            "mark": {
+                "type": "circle", "fill": "#6a51a3",
+                "x": 470,
+                "y": 530
+            }
+        },
+        {
+            "mark": {
+                "type": "text", "fill": "#595959", "fontSize": 14, "fontWeight": "lighter", "align": "left",
+                "text": [
+                    "Source: https://www.nasdaq.com/market-activity/stocks/nvda/historical", 
+                    "Author: NASDAQ",
+                    "Date Retrieved: October 7, 2024"
+                ],
+                "x": -40,
+                "y": 505
+            }
+        }
+    ]
+}

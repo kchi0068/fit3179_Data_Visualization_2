@@ -1,0 +1,18 @@
+Company,GPU_Series,September_Share
+NVIDIA,NVIDIA GeForce RTX 40 series,22.93
+NVIDIA,NVIDIA GeForce RTX 30 series,25.96
+NVIDIA,NVIDIA GeForce RTX 20 series,7.89
+NVIDIA,NVIDIA GeForce RTX 16 series,8.87
+NVIDIA,NVIDIA GeForce RTX 10 series,8.48
+NVIDIA,Other,1.36
+AMD,AMD Radeon RX 7000 series,0.36
+AMD,AMD Radeon RX 6000 series,3.33
+AMD,AMD Radeon RX 5000 series,0.92
+AMD,AMD Radeon RX 500 series,1.98
+AMD,AMD RX Vega series,0.67
+AMD,Other,3.47
+Intel,Intel Gen12 series,1.91
+Intel,Intel Gen11 series,1.45
+Intel,Intel Gen9 series,1.34
+Intel,Intel Gen7.5 series,0.19
+Other,Other and Unspecified,8.89

@@ -1,0 +1,353 @@
+{
+    "$schema": "https://vega.github.io/schema/vega/v5.json",
+    "title": {"text": "Steam Users GPU Distribution in September 2024", "fontSize": 16, "offset": 20},
+    "width": 720,
+    "height": 400,
+    "padding": {"top": 40, "left": 20, "right": 20, "bottom": 50},
+    "autosize": "none",
+    "signals": [
+      {
+        "name": "layout",
+        "value": "squarify"
+      },
+      {
+        "name": "aspectRatio",
+        "value": 1.6
+      }
+    ],
+    "data": [
+      {
+        "name": "tree",
+        "values": [
+          {"id": 1},
+          {
+            "id": 2,
+            "name": "NVIDIA",
+            "parent": 1
+          },
+          {
+            "id": 3,
+            "name": "AMD",
+            "parent": 1
+          },
+          {
+            "id": 4,
+            "name": "Intel",
+            "parent": 1
+          },
+          {
+            "id": 5,
+            "name": "Other",
+            "parent": 1
+          },
+          {
+            "id": 6,
+            "name": "RTX 40",
+            "parent": 2,
+            "size": 22.93
+          },
+          {
+            "id": 7,
+            "name": "RTX 30",
+            "parent": 2,
+            "size": 25.96
+          },
+          {
+            "id": 8,
+            "name": "RTX 20",
+            "parent": 2,
+            "size": 7.89
+          },
+          {
+            "id": 9,
+            "name": "RTX 16",
+            "parent": 2,
+            "size": 8.87
+          },
+          {
+            "id": 10,
+            "name": "RTX 10",
+            "parent": 2,
+            "size": 8.48
+          },
+          {
+            "id": 11,
+            "name": "Other",
+            "parent": 2,
+            "size": 1.36
+          },
+          {
+            "id": 12,
+            "name": "RX 7000",
+            "parent": 3,
+            "size": 0.36
+          },
+          {
+            "id": 13,
+            "name": "RX 6000",
+            "parent": 3,
+            "size": 3.33
+          },
+          {
+            "id": 14,
+            "name": "RX 5000",
+            "parent": 3,
+            "size": 0.92
+          },
+          {
+            "id": 15,
+            "name": "RX 500",
+            "parent": 3,
+            "size": 1.98
+          },
+          {
+            "id": 16,
+            "name": "RX Vega",
+            "parent": 3,
+            "size": 0.67
+          },
+          {
+            "id": 17,
+            "name": "Other",
+            "parent": 3,
+            "size": 3.47
+          },
+          {
+            "id": 18,
+            "name": "Gen12",
+            "parent": 4,
+            "size": 1.91
+          },
+          {
+            "id": 19,
+            "name": "Gen11",
+            "parent": 4,
+            "size": 1.45
+          },
+          {
+            "id": 20,
+            "name": "Gen9",
+            "parent": 4,
+            "size": 1.34
+          },
+          {
+            "id": 21,
+            "name": "Gen7.5",
+            "parent": 4,
+            "size": 0.19
+          },
+          {
+            "id": 22,
+            "name": "Other and Unspecified",
+            "parent": 5,
+            "size": 8.89
+          }
+
+        ],
+        "transform": [
+          {"type": "stratify", "key": "id", "parentKey": "parent"},
+          {
+            "type": "treemap",
+            "field": "size",
+            "sort": {"field": "value"},
+            "round": true,
+            "method": {"signal": "layout"},
+            "ratio": {"signal": "aspectRatio"},
+            "size": [{"signal": "width"}, {"signal": "height"}]
+          }
+        ]
+      },
+      {
+        "name": "nodes",
+        "source": "tree",
+        "transform": [{"type": "filter", "expr": "datum.children"}]
+      },
+      {
+        "name": "leaves",
+        "source": "tree",
+        "transform": [{"type": "filter", "expr": "!datum.children"}]
+      }
+    ],
+    "legends": [
+      {
+        "values": ["NVIDIA", "AMD", "Intel", "Other"],
+        "fill": "color",
+        "title": "Company",
+        "orient": "none",
+        "legendX": 0,
+        "legendY": 410,
+        "direction": "horizontal",
+        "encode": {
+          "labels": {
+            "update": {
+              "fontSize": {"value": 12}
+            }
+          }
+        }
+      }
+    ],
+    "scales": [
+      {
+        "name": "color",
+        "type": "ordinal",
+        "domain": {"data": "nodes", "field": "name"},
+        "range": [
+          "#808080",
+          "#76b56d",
+          "#9b84d1",
+          "#4c9dd4"
+        ]
+      },
+      {
+        "name": "size",
+        "type": "ordinal",
+        "domain": [0, 1, 2, 3],
+        "range": [256, 28, 20, 14]
+      },
+      {
+        "name": "opacity",
+        "type": "ordinal",
+        "domain": [0, 1, 2, 3],
+        "range": [0.15, 0.5, 0.8, 1]
+      }
+    ],
+    "marks": [
+      {
+        "type": "rect",
+        "from": {"data": "nodes"},
+        "interactive": false,
+        "encode": {
+          "enter": {"fill": {"scale": "color", "field": "name"}},
+          "update": {
+            "x": {"field": "x0"},
+            "y": {"field": "y0"},
+            "x2": {"field": "x1"},
+            "y2": {"field": "y1"}
+          }
+        }
+      },
+      {
+        "type": "rect",
+        "from": {"data": "leaves"},
+        "encode": {
+          "enter": {"stroke": {"value": "#fff"}},
+          "update": {
+            "x": {"field": "x0"},
+            "y": {"field": "y0"},
+            "x2": {"field": "x1"},
+            "y2": {"field": "y1"},
+            "fill": {"value": "transparent"}
+          },
+          "hover": {
+                "fill": {"value": "#e4f7e1"},
+                "tooltip": {"signal": "{'GPU Series':datum.name, 'GPU Share':datum.size + '%'}"}
+            }
+        }
+      },
+      {
+        "type": "text",
+        "from": {"data": "nodes"},
+        "interactive": false,
+        "encode": {
+          "enter": {
+            "font": {"value": "Helvetica Neue, Arial"},
+            "align": {"value": "center"},
+            "baseline": {"value": "middle"},
+            "fill": {"value": "#000"},
+            "text": {"field": "name"},
+            "fontSize": {"scale": "size", "field": "depth"},
+            "fillOpacity": {"scale": "opacity", "field": "depth"}
+          },
+          "update": {
+            "x": {"signal": "0.5 * (datum.x0 + datum.x1 - 10)"},
+            "y": {"signal": "0.5 * (datum.y0 + datum.y1 - 30)"}
+          }
+        }
+      },
+      {
+        "type": "text",
+        "from": {"data": "leaves"},
+        "interactive": false,
+        "encode": {
+          "enter": {
+            "font": {"value": "Helvetica Neue, Arial"},
+            "align": {"value": "center"},
+            "baseline": {"value": "middle"},
+            "fill": {"value": "#000"},
+            "text": {"field": "name"},
+            "fillOpacity": {"scale": "opacity", "field": "depth"}
+          },
+          "update": {
+            "x": {"signal": "0.5 * (datum.x0 + datum.x1)"},
+            "y": {"signal": "0.5 * (datum.y0 + datum.y1)"}
+          }
+        }
+      },
+      {
+        "type": "text",
+        "data": [{}],
+        "encode": {
+          "update": {
+            "text": {
+              "value": [
+                "Over 75% of Steam users surveyed in",
+                "September 2024 reported using an NVIDIA GPU.",
+                "This figure is significant as it is greater than",
+                "the GPU share of all of NVIDIA's competitors combined."
+              ]
+            },
+            "align": {"value": "left"},
+            "lineHeight": {"value": 16},
+            "fill": {"value": "#454545"},
+            "x": {"signal": "320"},
+            "y": {"signal": "300"},
+            "fontSize": {"value": 14}
+          }
+        }
+      },
+      {
+        "type": "text",
+        "data": [{}],
+        "encode": {
+          "update": {
+            "text": {
+              "value": [
+                "AMD is firmly in",
+                "second-place,",
+                "carving out",
+                "a GPU share of",
+                "roughly 11%"
+              ]
+            },
+            "align": {"value": "left"},
+            "lineHeight": {"value": 14},
+            "fill": {"value": "#454545"},
+            "x": {"signal": "70"},
+            "y": {"signal": "335"},
+            "fontSize": {"value": 14}
+          }
+        }
+      },
+      {
+        "type": "text",
+        "data": [{}],
+        "encode": {
+          "update": {
+            "text": {
+              "value": [
+                "Source: https://store.steampowered.com/hwsurvey/Steam-Hardware-Software-Survey-Welcome-to-Steam",
+                "Author: Valve Corporation",
+                "Date Published: October 2, 2024"
+              ]
+            },
+            "align": {"value": "left"},
+            "lineHeight": {"value": 14},
+            "fill": {"value": "#595959"},
+            "x": {"signal": "235"},
+            "y": {"signal": "420"},
+            "fontSize": {"value": 10}
+          }
+        }
+      }
+    ]
+  }

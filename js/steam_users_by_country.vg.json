@@ -1,0 +1,171 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 720,
+    "height": 400,
+    "background": "#c0e8ba",
+    "padding": {"left": 15, "bottom": 20},
+    "title": {
+        "text": "Steam Users per 10,000 population by Country in 2021", 
+        "fontSize": 16
+    },
+    "projection": {"type": "equalEarth", "scale": {"expr": "zoom_level"}, "center": {"expr": "center_to"}},
+
+    "params": [
+        {
+            "name": "zoom_level",
+            "value": 120,
+            "bind": {
+                "input": "range",
+                "min": 100,
+                "max": 500,
+                "step": 10,
+                "name": "Zoom: "
+            }
+        },
+        {
+            "name": "center_to",
+            "value": [0, 0],
+            "bind": {
+                "input": "select",
+                "options": [
+                [0, 0],
+                [0, 50],
+                [100, 20],
+                [150, -30],
+                [-90, 40],
+                [-60, -20]
+                ],
+                "labels": ["Africa", "Europe", "Asia", "Oceania", "North America", "South America"],
+                "name": "Map Centre: "
+            }
+        }
+    ],
+
+    "data": {
+        "url": "js/ne_110m_admin_0_countries.json",
+        "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+    },
+
+    "config": {
+        "style": {
+            "cell": {
+                "stroke": "transparent"
+            }
+        }
+    },
+
+    "layer": [
+        {
+            "transform": [
+                {
+                    "calculate": "'Data unavailable for ' + datum.properties.NAME",
+                    "as": "note"
+                }
+            ],
+            "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"},
+            "encoding": {"tooltip": {"field": "note"}}
+        },
+        {
+            "data": {
+                "url": "js/ne_110m_ocean.json",
+                "format": {"type": "topojson", "feature": "oceans"}
+            },
+            "mark": {"type": "geoshape", "fill": "skyblue"}
+        },
+        {
+            "data": {
+                "url": "js/ne_110m_graticules_30.json",
+                "format": {"type": "topojson", "feature": "ne_110m_graticules_30"}
+            },
+            "mark": {"type": "geoshape", "fill": null, "stroke": "lightgray"}
+        },
+        {
+            "transform": [
+                {
+                    "lookup": "properties.NAME",
+                    "from": {
+                        "data": {
+                            "url": "data/steam-users-by-country-2021.csv"
+                        },
+                        "key": "Country",
+                        "fields": ["Steam_Users_Total", "Population_2021"]
+                    }
+                },
+                {
+                    "calculate": "(datum.Steam_Users_Total/datum.Population_2021) * 10000",
+                    "as": "Steam Users per 10,000 population"
+                }
+            ],
+
+            "mark": {"type": "geoshape", "stroke": "white"},
+            "encoding": {
+                "color": {
+                    "field": "Steam Users per 10,000 population",
+                    "type": "quantitative",
+                    "scale": {
+                        "type": "threshold",
+                        "domain": [50,100,200,400],
+                        "range": ["#9cdb93", "#71ab68", "#54914a", "#2c7022", "#094001"]
+                    },
+                    "legend": {
+                        "title": "Steam Users per 10,000 population",
+                        "titleLimit": 250,
+                        "titleFontSize": 12,
+                        "direction": "horizontal",
+                        "orient": "none",
+                        "legendX": 0,
+                        "legendY": 370
+                    }
+                },
+                "tooltip": [
+                    {"field": "properties.NAME", "type": "nominal", "title": "Country"},
+                    {"field": "Steam_Users_Total", "type": "quantitative", "title": "Total Steam Users", "format": ","},
+                    {"field": "Steam Users per 10,000 population", "type": "quantitative", "format": ".2f"}
+                ]
+            }
+        },
+        {
+            "transform": [
+              {
+                "lookup": "properties.NAME",
+                "from": {
+                  "data": {
+                    "url": "data/steam-users-by-country-2021.csv"
+                  },
+                  "key": "Country",
+                  "fields": ["Latitude", "Longitude"]
+                }
+              }
+            ],
+            "mark": {"type": "text", "fill": "white", "stroke": "black", "strokeWidth": 1, "fontSize": 18, "fontWeight": "bolder"},
+            "encoding": {
+              "longitude": {"field": "Longitude", "type": "quantitative"},
+              "latitude": {"field": "Latitude", "type": "quantitative"},
+              "text": {"field": "properties.NAME", "type": "nominal"},
+              "opacity": {
+                "condition": {
+                  "test": "datum['properties.NAME'] == 'Australia' || datum['properties.NAME'] == 'Malaysia' || datum['properties.NAME'] == 'Canada' || datum['properties.NAME'] == 'United Kingdom' ||  datum['properties.NAME'] == 'Brazil' ||  datum['properties.NAME'] == 'United States of America'",
+                  "value": 1
+                },
+                "value": 0
+              }
+            }
+        },
+        {
+            "mark": {
+                "type": "text", "fill": "#454545", "fontSize": 12, "fontWeight": "lighter", "align": "left",
+                "text": ["The United States has", "the largest absolute", "number of Steam users", "at roughly 13.7 million users"],
+                "x": 40,
+                "y": 150
+            }
+        },
+        {
+            "mark": {
+                "type": "text", "fill": "#454545", "fontSize": 12, "fontWeight": "lighter", "align": "left",
+                "text": ["In general, the continent of Africa", "has a very low concentration", "of Steam users"],
+                "x": 340,
+                "y": 300
+            }
+        }
+    ]
+}

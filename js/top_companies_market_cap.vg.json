@@ -1,0 +1,29 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+      "values": [
+        {"nvidia_year": "2021", "result": "16"},
+        {"nvidia_year": "2022", "result": "7"},
+        {"nvidia_year": "2023", "result": "13"},
+        {"nvidia_year": "2024", "result": "5"}
+        
+      ]
+    },
+
+    "layer": [
+        {
+            "mark": {"type": "line", "point": true},
+            "encoding": {
+                "x": {"field": "nvidia_year", "type": "nominal"},
+                "y": {
+                    "field": "result", 
+                    "type": "quantitative", 
+                    "sort": "descending", 
+                    "scale": {"domain": [5,17]}, 
+                    "axis": {"tickCount": 12, "values": [5,6,7,8,9,10,11,12,13,14,15,16,]}},
+                "order": {"field": "nvidia_year", "type": "nominal"}
+            }
+        }
+    ]
+  }
+  

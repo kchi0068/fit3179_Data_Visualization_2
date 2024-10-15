@@ -1,0 +1,139 @@
+.title {
+    text-align: center;
+    font-size: 32px;
+    color: #094001;
+    background-color: #a4d49d;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    margin-bottom: 50px;
+
+    border-radius: 25px;
+}
+
+html {
+    background-color: #e4f7e1;
+}
+
+.heading {
+    text-align: center;
+    font-family: "Playfair Display", serif;
+    font-size: large;
+    color: #094001;
+    background-color: #a4d49d;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    margin-bottom: 50px;
+
+    border-radius: 25px;
+}
+
+.metadata_box {
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 14px;
+    color: black;
+    background-color: #a4d49d;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    margin-bottom: 50px;
+
+    border-radius: 25px;
+}
+
+.page {
+    margin: auto;
+    width: 1300px;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top : 3%;
+
+    background-color: #e4f7e1;
+}
+
+
+.vis-container {
+    width: 100%;
+}
+
+
+.outline {
+    outline: 10px solid #094001;
+}
+
+.row_box {
+    background-color: #c0e8ba;
+    border-radius: 25px;
+    margin-bottom: 50px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    
+    width: 760px;
+
+}
+
+.text_box {
+    background-color: #a4d49d;
+    border-radius: 25px;
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-bottom: 50px;
+
+    margin-right: 50px;
+
+    width: 30%;
+    text-align: justify;
+    line-height: 180%;
+    font-size: 14px;
+}
+
+.vega-bindings {
+    padding-left: 15px;
+}
+
+.row2 {
+    padding-bottom: 50px;
+}
+
+.metadata {
+    padding-left: 15px;
+    color: #595959;
+    font-size: 11px;
+}
+
+.para1 {
+    text-align: justify;
+    line-height: 180%;
+}
+
+.para2 {
+    width: 55%;
+    text-align: justify;
+    line-height: 180%;
+}
+
+.para3 {
+    width: 40%;
+    margin-left: 67px;
+    text-align: justify;
+    line-height: 180%;
+}
+
+.dot_matrix {
+    width: 430px;
+    margin-left: 55px;
+    background-color: #c0e8ba;
+}
+
+.radar_chart {
+    width: 47%;
+    background-color: #c0e8ba;
+}
+
+.candlestick_chart {
+    background-color: #c0e8ba;
+}
